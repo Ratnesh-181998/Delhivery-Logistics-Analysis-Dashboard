@@ -554,16 +554,58 @@ docker run -p 8501:8501 delhivery-dashboard
 <div align="center">
 
 ### Dashboard Overview
-![Dashboard Overview](https://via.placeholder.com/800x400?text=Dashboard+Overview)
+<img width="2869" height="1432" alt="image" src="https://github.com/user-attachments/assets/f447e586-7576-4439-8bf4-d3989f3fbc76" />
+<img width="2860" height="1436" alt="image" src="https://github.com/user-attachments/assets/75599a35-45b4-4798-a832-d91d59872d6c" />
+
+### Methodology
+<img width="2870" height="1466" alt="image" src="https://github.com/user-attachments/assets/a4cdeac5-bdb2-48b3-9fef-e2484e259404" />
+<img width="2473" height="1333" alt="image" src="https://github.com/user-attachments/assets/d3c9f928-a863-4d7c-b290-594948fc6b6f" />
+
 
 ### Interactive EDA
-![Interactive EDA](https://via.placeholder.com/800x400?text=Interactive+EDA)
+<img width="2820" height="1411" alt="image" src="https://github.com/user-attachments/assets/bcdb3fee-8586-413b-9633-542460b4fe04" />
+<img width="2479" height="1111" alt="image" src="https://github.com/user-attachments/assets/6df6cf5f-cb4c-4de8-a529-59ec80091e8a" />
+<img width="2490" height="1356" alt="image" src="https://github.com/user-attachments/assets/04ffb9a1-2120-4c1f-8a10-424b356eae27" />
+<img width="2522" height="1447" alt="image" src="https://github.com/user-attachments/assets/ba63ebb7-c4bd-4dd1-a8de-960bec84c394" />
+<img width="2512" height="1372" alt="image" src="https://github.com/user-attachments/assets/9c32677e-32c3-4589-aa3a-c0defd7a9729" />
+
+### Feature Engineering 
+<img width="2494" height="1421" alt="image" src="https://github.com/user-attachments/assets/3c7e7a33-8335-418b-aa24-fdaba807f64c" />
+<img width="2523" height="1451" alt="image" src="https://github.com/user-attachments/assets/2953ee8d-193f-4597-b519-bbdd30116910" />
+<img width="2530" height="1455" alt="image" src="https://github.com/user-attachments/assets/09e7b462-7ba1-4555-ba24-34279c6d9878" />
+<img width="2508" height="1292" alt="image" src="https://github.com/user-attachments/assets/de43adfb-1769-48af-8d2f-e9300898d3d1" />
+<img width="2525" height="1458" alt="image" src="https://github.com/user-attachments/assets/eae8390d-5703-4d0d-9b8e-8cbc918df59d" />
+<img width="2483" height="1329" alt="image" src="https://github.com/user-attachments/assets/e4bfbcfd-566a-4290-a434-db8f1d7447a9" />
+
 
 ### Hypothesis Testing
-![Hypothesis Testing](https://via.placeholder.com/800x400?text=Hypothesis+Testing)
+<img width="2500" height="1439" alt="image" src="https://github.com/user-attachments/assets/8de8b19a-e0f5-4632-9216-4d6c75e3eeaf" />
+<img width="2509" height="1241" alt="image" src="https://github.com/user-attachments/assets/3e874735-516b-4caf-a25d-687f654ffb67" />
+<img width="2501" height="1268" alt="image" src="https://github.com/user-attachments/assets/e7c82473-daa8-4f06-9fa8-6a67dcc006af" />
+<img width="2502" height="1388" alt="image" src="https://github.com/user-attachments/assets/5aad75da-aee0-488c-9ca7-b2be526f31cc" />
+<img width="2483" height="1392" alt="image" src="https://github.com/user-attachments/assets/91f084fc-63a0-4455-b9c3-ed384d95a573" />
+<img width="2501" height="1416" alt="image" src="https://github.com/user-attachments/assets/8dc9203c-0ef4-417a-afd5-e6d52d50f566" />
+
 
 ### Insights & Recommendations
-![Insights](https://via.placeholder.com/800x400?text=Insights+%26+Recommendations)
+<img width="2464" height="1447" alt="image" src="https://github.com/user-attachments/assets/dbbe9fb5-e403-4b87-bb07-3ac5fcd3310d" />
+<img width="2520" height="1462" alt="image" src="https://github.com/user-attachments/assets/f4609187-0fba-496d-bf0c-163bd6137b36" />
+<img width="2512" height="1383" alt="image" src="https://github.com/user-attachments/assets/1e67a4a4-4f2b-4d2f-bde7-4d794bec9396" />
+<img width="2517" height="1422" alt="image" src="https://github.com/user-attachments/assets/757ce9ce-3f64-49d5-81fb-9877db8139ca" />
+<img width="2478" height="1152" alt="image" src="https://github.com/user-attachments/assets/ab5d4914-7ab7-431f-b8f1-368a02680f07" />
+
+### Complete Analysis
+<img width="2516" height="1383" alt="image" src="https://github.com/user-attachments/assets/a853e6b2-0035-4364-be35-ac016953c678" />
+<img width="2516" height="1425" alt="image" src="https://github.com/user-attachments/assets/fb1ab021-ad2c-47eb-b5d4-dc3d053034de" />
+<img width="2491" height="1289" alt="image" src="https://github.com/user-attachments/assets/ca365be3-0868-4cc4-bf7d-833ddd8415a7" />
+<img width="2512" height="1253" alt="image" src="https://github.com/user-attachments/assets/3296f6f5-b87b-4e4f-998c-3edaf118ebdb" />
+<img width="2518" height="1428" alt="image" src="https://github.com/user-attachments/assets/63dedd4a-c03b-4f19-b919-1bae9bbb89ab" />
+### Logs
+<img width="2521" height="1439" alt="image" src="https://github.com/user-attachments/assets/619caf32-52dc-44b7-970f-71e9c96b3c2c" />
+<img width="2500" height="1412" alt="image" src="https://github.com/user-attachments/assets/9d0791f8-f47d-48aa-b4d3-e49de606d3df" />
+<img width="2503" height="1397" alt="image" src="https://github.com/user-attachments/assets/9c078e25-9189-44e8-ad8c-8e14ea87e71a" />
+<img width="2459" height="1437" alt="image" src="https://github.com/user-attachments/assets/4b756363-8c8c-42f5-924a-a34412114b0a" />
+
 
 </div>
 
