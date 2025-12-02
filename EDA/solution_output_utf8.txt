@@ -1,0 +1,75 @@
+﻿================================================================================
+DELHIVERY FEATURE ENGINEERING - SOLUTION ANALYSIS
+================================================================================
+
+[1] Loading Data...
+    Dataset Shape: (144867, 24)
+
+[2] Cleaning & Preprocessing...
+    Extracting City and State features...
+
+[3] Feature Engineering...
+    Time metrics converted to hours.
+
+[4] Data Aggregation...
+    Aggregating at Trip Level...
+
+[5] Hypothesis Testing...
+    KS Test (Time Taken (OD) vs Start Scan to End Scan):
+      Statistic: 0.0030
+      P-Value:   1.0000
+      Result:    Distributions are likely SIMILAR (Fail to reject H0)
+----------------------------------------
+    KS Test (Actual Time vs Start Scan to End Scan):
+      Statistic: 0.5295
+      P-Value:   0.0000
+      Result:    Distributions are likely DIFFERENT (Reject H0)
+----------------------------------------
+    KS Test (Actual Time vs OSRM Time):
+      Statistic: 0.2945
+      P-Value:   0.0000
+      Result:    Distributions are likely DIFFERENT (Reject H0)
+----------------------------------------
+    KS Test (Actual Time vs Segment Actual Time):
+      Statistic: 0.0086
+      P-Value:   0.6348
+      Result:    Distributions are likely SIMILAR (Fail to reject H0)
+----------------------------------------
+    KS Test (OSRM Time vs Segment OSRM Time):
+      Statistic: 0.0351
+      P-Value:   0.0000
+      Result:    Distributions are likely DIFFERENT (Reject H0)
+----------------------------------------
+
+[6] Business Insights...
+
+    Top 5 Busiest State Routes:
+route
+Maharashtra to Maharashtra    2406
+Karnataka to Karnataka        2015
+Tamil Nadu to Tamil Nadu      1016
+Haryana to Haryana             871
+Telangana to Telangana         655
+Name: count, dtype: int64
+
+    Top 5 States by Outbound Trips:
+source_state
+Maharashtra    2682
+Karnataka      2229
+Haryana        1684
+Tamil Nadu     1085
+Delhi           793
+Name: count, dtype: int64
+
+    Top 5 States by Inbound Trips:
+destination_state
+Maharashtra    2591
+Karnataka      2276
+Haryana        1667
+Tamil Nadu     1072
+Telangana       838
+Name: count, dtype: int64
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================

@@ -1,0 +1,577 @@
+
+================================================================================
+PAGE 1 of 17
+================================================================================
+
+About Delhivery: 
+• 
+Delhivery is the largest and fastest-growing fully integrated player in India by revenue in Fiscal 2021. 
+They aim to build the operating system for commerce, through a combination of world-class 
+infrastructure, logistics operations of the highest quality, and cutting-edge engineering and 
+technology capabilities. 
+• 
+The Data team builds intelligence and capabilities using this data that helps them to widen the gap 
+between the quality, efficiency, and profitability of their business versus their competitors. 
+ 
+Business Problem Statement: 
+• 
+The company wants to understand and process the data coming out of data engineering pipelines: 
+• Clean, sanitize and manipulate data to get useful features out of raw fields 
+• Make sense out of the raw data and help the data science team to build forecasting models on it. 
+ 
+Column Profiling: 
+• 
+data : tells whether the data is testing or training data 
+• 
+trip_creation_time : Timestamp of trip creation 
+• 
+route_schedule_uuid : Unique Id for a particular route schedule 
+• 
+route_type : Transportation type 
+▪ 
+FTL – Full Truck Load: FTL shipments get to the destination sooner, as the truck is making no other pickups 
+or drop-offs along the way 
+▪ 
+Carting: Handling system consisting of small vehicles (carts) 
+• 
+trip_uuid : Unique ID given to a particular trip (A trip may include different source and destination centers) 
+• 
+source_center : Source ID of trip origin 
+• 
+source_name : Source Name of trip origin 
+• 
+destination_cente : Destination ID 
+• 
+destination_name : Destination Name 
+• 
+od_start_time : Trip start time 
+• 
+od_end_time : Trip end time 
+• 
+start_scan_to_end_scan : Time taken to deliver from source to destination 
+• 
+is_cutoff : Unknown field 
+• 
+cutoff_factor : Unknown field 
+• 
+cutoff_timestamp : Unknown field 
+• 
+actual_distance_to_destination : Distance in Kms between source and destination warehouse 
+• 
+actual_time : Actual time taken to complete the delivery (Cumulative) 
+• 
+osrm_time : An open-source routing engine time calculator which computes the shortest path between points in a 
+given map (Includes usual traffic, distance through major and minor roads) and gives the time (Cumulative) 
+• 
+osrm_distance : An open-source routing engine which computes the shortest path between points in a given map 
+(Includes usual traffic, distance through major and minor roads) (Cumulative) 
+• 
+factor : Unknown field 
+• 
+segment_actual_time : This is a segment time. Time taken by the subset of the package delivery 
+• 
+segment_osrm_time : This is the OSRM segment time. Time taken by the subset of the package delivery 
+• 
+segment_osrm_distance : This is the OSRM distance. Distance covered by subset of the package delivery 
+• 
+segment_factor : Unknown field 
+ 
+ 
+ 
+ 
+ 
+
+
+================================================================================
+PAGE 2 of 17
+================================================================================
+
+Understanding the structure  
+ 
+Columns                                    Unique values per column 
+ 
+ 
+we have 14817 different trips happened between source to destinations. 
+ 
+total 1504 delivery routes we have. 
+ 
+1508 unique source centers 
+1481 unique destination centers 
+There are two different kind of routes are there : 
+ 
+Route type         % of routes 
+Carting    60.120132 % 
+FTL        39.879868 %  
+ 
+From 14817 total different trips , we have 
+8908 (60%) of the trip-routes are Carting , which consists of small vehicles and 
+5909 (40%) of total trip-routes are FTL : which are Full Truck Load get to the destination sooner. as no 
+other pickups or drop offs along the way . 
+
+
+================================================================================
+PAGE 3 of 17
+================================================================================
+
+ 
+OBSERVATIONS IN RAW DATA:  
+ 
+• 
+Each trip is taking stops between mentioned source and destination centers(warehouses). 
+• 
+od-end-time and od-start-time are the time when the that particular trip was ended and started. 
+ 
+• 
+start-scan-to-end-scan is the time duration of trips are being scanned when start and end.  
+ 
+• 
+start-scan-to-end-scan time is given cumulative. which is not given per trip segments. 
+ 
+ 
+• 
+trip cut off False, shows the record of trip when trip changes from one warehouse to another. 
+between source to destination.  
+ 
+ 
+• 
+Actual-time given is the time to complete the entire delivery from source to destination (given 
+cumulatively) 
+ 
+ 
+ 
+ 
+• 
+OSRM -time is an open-source routing engine time calculator which computes the shortest path 
+between points in a given map and gives the time and OSRM distance gives the shortest distance 
+(given cumulatively) 
+ 
+ 
+• 
+Actual-distance-to-destination is the actual distance between warehouses, given cumulative during 
+the trip.  
+• 
+every time cutoff is False, distance count starts from beginning.  
+ 
+• 
+Segment actual time, is the actual time taken between two stops in between trips. given per each 
+segment (taken between subset of package delivery) 
+ 
+• 
+segment OSRM time is the OSRM segment time, taken between subset of package delivery 
+ 
+After feature engineering Checking Data information and Null Values presence :  
+ 
+ 
+
+
+================================================================================
+PAGE 4 of 17
+================================================================================
+
+ 
+Hypothesis Tests for time durations and distance 
+related features: 
+ 
+Analysing TimeTaken Between OdStart and OdEnd time & 
+StartScanToEndScan : 
+H0: Mean of time taken betweenn trip end ans start time = Mean of start and end scan time 
+Ha: Mean of time taken betweenn trip end ans start time != Mean of start and end scan time 
+ 
+ 
+ 
+from Kolmogorov–Smirnov test , p-value is 0.9943 , from which we can conclude tht both the distributions 
+(time_taken_btwn_odstart_and_od_end and start_scan_to_end_scan) are closly similar. 
+from 2 sample t-test ,we can also conclude that Average time_taken_btwn_odstart_and_od_end for population is 
+also equal to Average start_scan_to_end_scan for population. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+================================================================================
+PAGE 5 of 17
+================================================================================
+
+Analysing Actual Time taken to complete the delivery & start-scan-
+end-scan 
+H0: Mean of start and end scan time <= Mean of Actual time taken to complete delivery 
+Ha: Mean of start and end scan time > Mean of Actual time taken to complete delivery 
+ 
+ 
+from KS test for actual-time and start_scan_to_end_scan distributions are not same. 
+from ttest of population average actual_time is less than population average start_scan_to_end_scan. 
+ 
+ 
+Analyzing Actual Time & Time Taken between start and end trip time. 
+H0: Mean of Actual time taken to complete delivery = Mean of time taken between trip end and start time 
+Ha: Mean of Actual time taken to complete delivery != Mean of time taken betweenn trip end and start time 
+ 
+from above kstest of distribution and two sample ttest , 
+we can conclude that population mean Actual time taken to complete delivery and population mean 
+time_taken_btwn_od_start_and_od_end are also not same. 
+ 
+
+
+================================================================================
+PAGE 6 of 17
+================================================================================
+
+Analyzing Actual Time taken to complete delivery from source to 
+destination hub & OSRM measured time : 
+H0: Mean of OSRM time >= Mean of Actual time taken to complete delivery 
+Ha: Mean of OSRM time < Mean of Actual time taken to complete delivery 
+ 
+ 
+from two sample ttest can conclude , that population mean actual time taken to complete delivery from 
+source to warehouse and orsm estimate mean time for population are not same. 
+actual time is higher than the osrm estimated time for delivery 
+ 
+ 
+Analyzing Actual Time taken to complete delivery from source to 
+destination hub & Segment Actual Time : 
+H0: Actual time = segment actual time 
+Ha: Actual time != segment actual time 
+ 
+ 
+ 
+from two sample ttest , we can conclude that 
+Population average for 
+Actual Time taken to complete delivery trip and segment actual time are same. 
+ 
+ 
+
+
+================================================================================
+PAGE 7 of 17
+================================================================================
+
+Analysing osrm Time & segment-osrm-time : 
+H0: segment actual time <= OSRM time 
+Ha: segment actual time > OSRM time 
+ 
+from ttest , we can conclude that 
+average of osrm Time & segment-osrm-time for population is not same. 
+Population Mean osrm time is less than Population Mean segment osrm time. 
+ 
+Analysing Distances measures : 
+ 
+Analysing and Visulizing OSRM Estimated distance and Segment-osrm-
+distance : 
+H0 : Segment OSRM distance <= OSRM distance 
+Ha : Segment OSRM distance > OSRM distance 
+ 
+ 
+from KS test , we can conclude the distributions of segment OSRM distance and OSRM distance are not 
+same! 
+from two sample one sided t-test, we can conclude: Average of OSRM distance for population is less than 
+average of segment OSRM distance 
+ 
+
+
+================================================================================
+PAGE 8 of 17
+================================================================================
+
+Analyzing and Visualizing OSRM Estimated distance and Actual 
+Distance between source and destination warehouse : 
+H0 : Mean OSRM distance <= Mean Actual distance 
+Ha : Mean OSRM distance > Mean Actual distance 
+ 
+ 
+From left sided t-test , we can conclude 
+for population OSRM estimated distance is higher than the actual distance from source to destination 
+warehouse. 
+ 
+After Aggregating and Merging All the numerical 
+Fields as per Trip-ID and Route-ID: 
+Data uploaded here in Github link :  
+ 
+https://github.com/28101991SUNNY/BusinessCase_Data_Exploration-/tree/main/Delhivery 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+================================================================================
+PAGE 9 of 17
+================================================================================
+
+Treating Outliers :  
+ 
+- checking distributions using boxplot for all numerical figures :  
+ 
+ 
+After treating outliers using z-score :  
+Removing all the figures beyond +/- 3 standard deviation : 
+ 
+ 
+ 
+
+
+================================================================================
+PAGE 10 of 17
+================================================================================
+
+ 
+Exploratory Data Analysis: (getting some insights 
+from preprocessed data: ) 
+ 
+Busiest Route Analysis : 
+Number of Trips between cities , sorted highest to lowest 
+Top 20 source and destination cities wihc have high freqency of trips in between . 
+ 
+From above table, we can observe that Mumbai Maharashtra ,Delhi , Gurgaon(Haryana),Bengaluru 
+Karnataka ,Hyderabad Telangana, Chennai Tamil Nadu, Ahmedabad-Gujarat, Pune Maharashtra, 
+Chandigarh Chandigarh and Kolkata West Bengal are some cities have higest amount of trips happening 
+states with in the city  
+ 
+If we talk about , not having equal source and destination states , source and destination cities having 
+higest number of trips in between are : Delhi TO Gurgao ,  Gurgaon  TO Bengaluru ,  Bhiwandi/Mumbai 
+TO Pune Maharashtra ,    Sonipat TO    Gurgaon,Haryana 
+It is also been observed that lots of deliveries are happening to airpots  like : Chennai to MAA chennai 
+international Airport , Pune to Pune Airport (PNQ),Kolkata to    CCU West Bengal Kolkata International 
+Airport , Bengluru to BLR-Bengaluru International Airport etc.  
+ 
+ 
+
+
+================================================================================
+PAGE 11 of 17
+================================================================================
+
+Below chart tells  
+Top Routes having Maximum Number of Trips between/within the source and destinations .  
+ 
+ 
+Top Routes as per distance between the source and destinations.  
+ 
+ 
+ 
+From above Bar chart , and table , we can observe that higest trips are happening is with in the particular 
+cities. 
+in terms of average distance between destinations , we can observe Guwahati to Mumbai , Benglore to 
+Chandigarh ,Benglore to Delhi , Benglore to Gurgaon are the longest routes . 
+ 
+ 
+ 
+ 
+ 
+
+
+================================================================================
+PAGE 12 of 17
+================================================================================
+
+Busiest and Longest Routes: 
+ 
+ 
+Above Table shows the souce to destination city routes having largest numbers of trip happening having 
+large distnaces : 
+ 
+
+
+================================================================================
+PAGE 13 of 17
+================================================================================
+
+Top 25 Routes which passes through Maximum Numbers of Cities :  
+ 
+# From above table shows the routes which covered multiple cities in between source and destination.  
+Most covered cities routes are : Guwahati TO LakhimpurN , Jaipur TO Tarnau , Guwahati TO Tura , Mangalore TO Udupi 
+, Ajmer TO Raipur , Mainpuri TO Tilhar . which passes through  more than 8 cities. 
+ 
+ 
+
+
+================================================================================
+PAGE 14 of 17
+================================================================================
+
+Top 20 Longest Route as per : Average actual time taken: 
+ 
+ 
+Highest number of Trips happening between/within two states: 
+ 
+ 
+From above charts ,  
+Delhi to Haryana is the busiest route, having more than 400 trips in between. Some of such busy routes are 
+Haryana to Uttar Pradesh , Chandigarh to Punjab , Delhi to Uttar Pradesh .  
+Within the state , Maharashtra , Karnataka, Tamil Nadu are some states having above 1000 trips.  
+ 
+
+
+================================================================================
+PAGE 15 of 17
+================================================================================
+
+Top 20 warehouses with heavy traffic: 
+ 
+ 
+ 
+From above chart are some warehouse having Maximum traffic and hence busiest junctions.  
+'Bengaluru Karnataka', 'Gurgaon Haryana', 'Mumbai Maharashtra', 'Bhiwandi Maharashtra', 'Hyderabad 
+Telangana', 'Delhi Delhi', 'Pune Maharashtra', 'Chandigarh Punjab', 'Chennai Tamil Nadu', 'Sonipat Haryana', 
+Kolkata West Bengal', 'Ahmedabad Gujarat', 'MAA Tamil Nadu', 'Jaipur Rajasthan', 'Kanpur Uttar Pradesh', 'Surat 
+Gujarat', 'Muzaffrpur Bihar', 'FBD Haryana', 'Bhopal Madhya Pradesh', 'Noida Uttar Pradesh' 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+================================================================================
+PAGE 16 of 17
+================================================================================
+
+Inferences and Recommendations : 
+Insights and Observations : 
+• 
+14817 different trips happened between source to destinations during 2018 , September and 
+October. 
+• 
+1504 delivery routes on which trips are happenig. 
+• 
+we have 1508 unique source centers and 1481 unique destination centers 
+• 
+From 14817 total different trips , we have 8908 (60%) of the trip-routes are Carting , which consists 
+of small vehicles and 5909 (40%) of total trip-routes are FTL : which are Full Truck Load get to the 
+destination sooner. as no other pickups or drop offs along the way . 
+• 
+Hypothesis tests Results : (In.[52] to In.[89]) 
+from 2 sample t-test ,we can also conclude that 
+▪ 
+Average time_taken_btwn_odstart_and_od_end for population is equal to Average 
+start_scan_to_end_scan for population. 
+▪ 
+population average actual_time is less than population average start_scan_to_end_scan. 
+▪ 
+population mean Actual time taken to complete delivery and population mean 
+time_taken_btwn_od_start_and_od_end are also not same. 
+▪ 
+Mean of actual time is higher than Mean of the OSRM estimated time for delivery 
+▪ 
+Population average for Actual Time taken to complete delivery trip and segment actual time 
+are same. 
+▪ 
+Average of OSRM Time & segment-osrm-time for population is not same. 
+▪ 
+Population Mean osrm time is less than Population Mean segment osrm time. 
+▪ 
+Average of OSRM distance for population is less than average of segment OSRM distance 
+▪ 
+population OSRM estimated distance is higher than the actual distance from source to 
+destination warehouse. 
+• 
+From Exploratory Data Analysis ( Cells In.[154] to In.[172] ) 
+• 
+we can observe that Mumbai Maharashtra ,Delhi , Gurgaon(Haryana),Bengaluru Karnataka 
+,Hyderabad Telangana, Chennai Tamil Nadu, Ahmedabad-Gujarat, Pune Maharashtra, Chandigarh 
+Chandigarh and Kolkata West Bengal are some cities have higest amount of trips happening states 
+with in the city. 
+• 
+If we talk about , not having equal source and destination states , source and destination cities 
+having higest number of trips in between are : Delhi TO Gurgao , Gurgaon TO Bengaluru , 
+Bhiwandi/Mumbai TO Pune Maharashtra , Sonipat TO Gurgaon,Haryana 
+• 
+It is also been observed that lots of deliveries are happening to airpots like : Chennai to MAA 
+chennai international Airport , Pune to Pune Airport (PNQ),Kolkata to CCU West Bengal Kolkata 
+International Airport , Bengluru to BLR-Bengaluru International Airport etc. 
+• 
+From Bar charts , and calculated tables in analysis , we can observe that higest trips are happening 
+is with in the particular cities, in terms of average distance between destinations , we can observe 
+Guwahati to Mumbai , Benglore to Chandigarh ,Benglore to Delhi , Benglore to Gurgaon are the 
+longest routes. 
+• 
+the souce to destination city routes having largest numbers of trip happening having large distnaces 
+:In[160-163] : 
+▪ 
+Guwahati TO Bhiwandi, Bengaluru TO Chandigarh, Bengaluru TO Delhi,Gurgaon TO MAA 
+Chennai Airport,Bhiwandi TO Kolkata, Bengaluru TO Kolkata, Gurgaon TO Hyderabad, 
+Gurgaon TO Kolkata 
+• 
+the routes which covered multiple cities in between source and destination : 
+▪ 
+Most covered cities routes are : Guwahati TO LakhimpurN , Jaipur TO Tarnau , Guwahati 
+TO Tura , Mangalore TO Udupi , Ajmer TO Raipur , Mainpuri TO Tilhar . which passes 
+through more than 8 cities. 
+• 
+Routes which are busiest from source to destinations and states in which highest activities are noticed : 
+▪ 
+Delhi to Haryana is the busiest route, having more than 400 trips in between. Some of such 
+busy routes are Haryana to Uttar Pradesh , Chandigarh to Punjab , Delhi to Uttar Pradesh . 
+
+
+================================================================================
+PAGE 17 of 17
+================================================================================
+
+▪ 
+Within the state , Maharashtra , Karnataka, Tamil Nadu, Haryana, Telangana, Gujarat , West 
+Benglore and Uttar Pradesh are some states having above 1000 trips. (In.[173]) 
+• 
+From above chart( In.[172] ) are some warehouse having Maximum traffic and hence busiest junctions. 
+▪ 
+Bengaluru Karnataka, Gurgaon Haryana, Mumbai Maharashtra, Hyderabad Telangana, 
+Delhi, Pune Maharashtra, Chandigarh Punjab, Chennai Tamil Nadu, Sonipat Haryana, 
+Kolkata West Bengal, Ahmedabad Gujarat, MAA Tamil Nadu, Jaipur Rajasthan, Kanpur 
+Uttar Pradesh, Surat Gujarat, Muzaffrpur Bihar, FBD Haryana, Bhopal Madhya Pradesh, 
+Noida Uttar Pradesh. 
+Recommendations : 
+• 
+As per analysis, It is recommended to use Carting (small vehicles) for delivery with in the city in 
+order to reduce the delivery time, and Heavy trucks for long distance trips or heavy load. based on 
+this , we can optimize the delivery time as well as increase the revenue as per requirements. 
+• 
+Incresing the connectivity in tier 2 and tier 3 cities along with profession tie-ups with several e-
+commerce giants can increase the revenue as well as the reputation on connectivity across borders. 
+• 
+We can work on optimizing the scanning time on both ends which is start scanning time and end 
+scanning time so that the delivery time can be equated to the OSRM estimated delivery time. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Thank you . 
