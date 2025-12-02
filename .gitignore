@@ -34,8 +34,8 @@ delhivery_app.log
 *.csv
 *.xlsx
 *.xls
-# Uncomment below if you want to track data files
-# !data/*.csv
+# Allow main data file
+!delhivery_data.csv
 
 # IDE
 .vscode/
