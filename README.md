@@ -45,6 +45,11 @@ The **Delhivery Logistics Analysis Dashboard** is a comprehensive data analytics
 - **OSRM Integration**: Compare actual vs estimated delivery metrics
 - **Production-Ready**: Comprehensive logging, error handling, and monitoring
 - **Scalable Architecture**: Handles datasets with 100K+ records efficiently
+  
+---
+## 🎬 Demo
+- **Streamlit Profile** - https://share.streamlit.io/user/ratnesh-181998
+- **Project Demo** - https://delhivery-logistics-analysis-dashboard-bp5ruz5asyrx4yc67j5h4i.streamlit.app/
 
 ---
 
@@ -657,7 +662,7 @@ SOFTWARE.
 
 ### Project Links
 
-- 🌐 **Live Demo**: [Streamlit Cloud](https://your-app-url.streamlit.app/)
+- 🌐 **Live Demo**: [Streamlit Cloud](https://delhivery-logistics-analysis-dashboard-bp5ruz5asyrx4yc67j5h4i.streamlit.app/)
 - 📖 **Documentation**: [GitHub Wiki](https://github.com/Ratnesh-181998/Delhivery-Logistics-Analysis-Dashboard/wiki)
 - 🐛 **Issue Tracker**: [GitHub Issues](https://github.com/Ratnesh-181998/Delhivery-Logistics-Analysis-Dashboard/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/Ratnesh-181998/Delhivery-Logistics-Analysis-Dashboard/discussions)
